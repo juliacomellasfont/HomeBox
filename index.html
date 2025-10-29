@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HomeBox</title>
+<style>
+body { margin:0; padding:0; background:#fff; font-family:'Poppins', sans-serif; overflow:hidden; }
+h1 { text-align:center; margin:20px 0; font-size:2.5rem; color:#000; }
+button { cursor:pointer; transition:0.3s; }
+
+/* PÀGINA PRINCIPAL */
+#homePage { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; }
+#homePage h1 { font-size:3rem; margin-bottom:50px; }
+.menu-buttons { display:flex; gap:40px; }
+.menu-buttons button { background:#000; color:#fff; border:none; border-radius:30px; padding:20px 40px; font-size:1.2rem; }
+.menu-buttons button:hover { background:#333; }
+
+/* PÀGINES DE TEMÀTICA */
+.page { display:none; flex-direction:column; align-items:center; position:relative; }
+.home-btn { position:absolute; top:20px; left:20px; background:#000; color:#fff; border:none; border-radius:30px; padding:10px 20px; font-size:1rem; cursor:pointer; }
+.home-btn:hover { background:#333; }
+
+.stage { background:#111; margin:60px auto 0; padding:100px 40px; display:flex; flex-wrap:wrap; justify-content:center; gap:60px; position:relative; border-radius:20px; width:fit-content; }
+.progress { position:absolute; top:15px; left:50%; transform:translateX(-50%); display:flex; gap:14px; }
+.dot { width:16px; height:16px; border-radius:50%; background:#444; transition:all 0.2s; }
+.dot.active { background:#fff; transform:scale(1.4); }
+
+.character { width:180px; height:180px; border-radius:50%; background:#333; display:flex; align-items:center; justify-content:center; position:relative; transition:all 0.4s ease; overflow:hidden; }
+.character img { width:100%; height:100%; object-fit:cover; border-radius:50%; opacity:0; transform:scale(0.8); transition:opacity 0.6s ease, transform 0.6s ease, border-radius 0.6s ease; }
+.remove-sound { position:absolute; top:5px; right:5px; width:24px; height:24px; background:#fff; color:#000; font-weight:bold; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:16px; cursor:pointer; opacity:0; transition:opacity 0.3s; z-index:3; }
+.character.active .remove-sound { opacity:1; }
+
+.sounds { display:flex; justify-content:center; flex-wrap:wrap; gap:40px; margin-top:50px; }
+.sound { width:80px; height:80px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:grab; user-select:none; transition:0.3s; overflow:hidden; }
+.sound img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+
+.reset-container { display:flex; justify-content:center; margin-top:30px; }
+#resetBtn1, #resetBtn2 { background:#000; color:#fff; border:none; padding:10px 25px; border-radius:30px; font-size:1rem; cursor:pointer; transition:0.3s; }
+#resetBtn1:hover, #resetBtn2:hover { background:#333; }
+</style>
+</head>
+<body>
+
+<!-- HOME PAGE -->
+<div id="homePage">
+  <h1>HomeBox</h1>
+  <div class="menu-buttons">
+    <button id="btnKitchen">KitchenBox</button>
+    <button id="btnSafareig">SafareigBox</button>
+  </div>
+</div>
+
+<!-- PÀGINA TEMÀTICA 1 -->
+<div id="kitchenPage" class="page">
+  <button class="home-btn" onclick="goHome()">HomeBox</button>
+  <h1>KITCHENBOX</h1>
+
+  <div class="stage" id="stage1">
+    <div class="progress">
+      <div class="dot" id="dot1a"></div>
+      <div class="dot" id="dot2a"></div>
+      <div class="dot" id="dot3a"></div>
+      <div class="dot" id="dot4a"></div>
+    </div>
+    <div class="character" id="char1a" data-sound=""><div class="remove-sound">×</div></div>
+    <div class="character" id="char2a" data-sound=""><div class="remove-sound">×</div></div>
+    <div class="character" id="char3a" data-sound=""><div class="remove-sound">×</div></div>
+    <div class="character" id="char4a" data-sound=""><div class="remove-sound">×</div></div>
+    <div class="character" id="char5a" data-sound=""><div class="remove-sound">×</div></div>
+    <div class="character" id="char6a" data-sound=""><div class="remove-sound">×</div></div>
+  </div>
+
+  <div class="sounds">
+    <div class="sound" draggable="true" data-sound="vitro2.mp3" data-image="images/vitro2.png"><img src="images/vitro2.png"></div>
+    <div class="sound" draggable="true" data-sound="batidora3.mp3" data-image="images/batidora3.png"><img src="images/batidora3.png"></div>
+    <div class="sound" draggable="true" data-sound="nevera4.mp3" data-image="images/nevera4.png"><img src="images/nevera4.png"></div>
+    <div class="sound" draggable="true" data-sound="aixeta5.mp3" data-image="images/aixeta5.png"><img src="images/aixeta5.png"></div>
+    <div class="sound" draggable="true" data-sound="finalmicroones6.mp3" data-image="images/finalmicroones6.png"><img src="images/finalmicroones6.png"></div>
+    <div class="sound" draggable="true" data-sound="refresc7.mp3" data-image="images/refresc7.png"><img src="images/refresc7.png"></div>
+    <div class="sound" draggable="true" data-sound="forn8.mp3" data-image="images/forn8.png"><img src="images/forn8.png"></div>
+  </div>
+
+  <div class="reset-container"><button id="resetBtn1">RESET</button></div>
+</div>
+
+<!-- PÀGINA TEMÀTICA 2 -->
+<div id="safareigPage" class="page">
+  <button class="home-btn" onclick="goHome()">HomeBox</button>
+  <h1>SAFAREIGBOX</h1>
+
+  <div class="stage" id="stage2">
+    <div class="progress">
+      <div class="dot" id="dot1b"></div>
+      <div class="dot" id="dot2b"></div>
+      <div class="dot" id="dot3b"></div>
+      <div class="dot" id="dot4b"></div>
+    </div>
+    <div class="character" id="char1b" data-sound=""><div class="remove-sound">×</div></div>
+    <div class="character" id="char2b" data-sound=""><div class="remove-sound">×</div></div>
+    <div class="character" id="char3b" data-sound=""><div class="remove-sound">×</div></div>
+    <div class="character" id="char4b" data-sound=""><div class="remove-sound">×</div></div>
+    <div class="character" id="char5b" data-sound=""><div class="remove-sound">×</div></div>
+    <div class="character" id="char6b" data-sound=""><div class="remove-sound">×</div></div>
+  </div>
+
+  <div class="sounds">
+    <div class="sound" draggable="true" data-sound="rentadora1.mp3" data-image="images/rentadora1.png"><img src="images/rentadora1.png"></div>
+    <div class="sound" draggable="true" data-sound="portarentadora2.mp3" data-image="images/portarentadora2.png"><img src="images/portarentadora2.png"></div>
+    <div class="sound" draggable="true" data-sound="planxa3.mp3" data-image="images/planxa3.png"><img src="images/planxa3.png"></div>
+    <div class="sound" draggable="true" data-sound="cremallera4.mp3" data-image="images/cremallera4.png"><img src="images/cremallera4.png"></div>
+    <div class="sound" draggable="true" data-sound="centrifugat5.mp3" data-image="images/centrifugat5.png"><img src="images/centrifugat5.png"></div>
+    <div class="sound" draggable="true" data-sound="assecadora6.mp3" data-image="images/assecadora6.png"><img src="images/assecadora6.png"></div>
+  </div>
+
+  <div class="reset-container"><button id="resetBtn2">RESET</button></div>
+</div>
+
+<script>
+const homePage = document.getElementById("homePage");
+const kitchenPage = document.getElementById("kitchenPage");
+const safareigPage = document.getElementById("safareigPage");
+
+document.getElementById("btnKitchen").onclick = ()=>{ homePage.style.display="none"; kitchenPage.style.display="flex"; startTheme('kitchen'); };
+document.getElementById("btnSafareig").onclick = ()=>{ homePage.style.display="none"; safareigPage.style.display="flex"; startTheme('safareig'); };
+function goHome(){ location.reload(); }
+
+// ===== FUNCIONS TEMÀTIQUES =====
+function startTheme(theme){
+  const stage = theme==='kitchen'? document.getElementById('stage1') : document.getElementById('stage2');
+  const characters = stage.querySelectorAll('.character');
+  const sounds = (theme==='kitchen'? kitchenSounds : safareigSounds);
+  const dots = theme==='kitchen'? [dot1a,dot2a,dot3a,dot4a] : [dot1b,dot2b,dot3b,dot4b];
+  
+  let startTime = Date.now();
+  const loopLength = 9600; // 2 compassos = 9.6s
+  let currentBeat = 0;
+
+  setInterval(()=>{
+    currentBeat = Math.floor((Date.now()-startTime)/2400)%4;
+    dots.forEach((dot,i)=> dot.classList.toggle('active', i===currentBeat));
+  },50);
+
+  // Drag & drop
+  sounds.forEach(s=>{
+    s.element.addEventListener('dragstart', e=>{ e.dataTransfer.setData('sound', s.file); });
+  });
+
+  characters.forEach(char=>{
+    char.addEventListener('dragover', e=> e.preventDefault());
+    char.addEventListener('drop', e=>{
+      const file = e.dataTransfer.getData('sound');
+      const soundObj = sounds.find(x=>x.file===file);
+      if(!soundObj) return;
+      scheduleSound(char, soundObj.file, soundObj.image, loopLength);
+    });
+    const removeBtn = char.querySelector('.remove-sound');
+    removeBtn.addEventListener('click', ()=>{
+      removeSound(char);
+    });
+  });
+  
+  function scheduleSound(char, file, imgSrc, loopLength){
+    if(char.dataset.sound) return;
+
+    const img = document.createElement('img');
+    img.src = imgSrc; img.style.opacity=0.4; img.style.transform="scale(0.9)";
+    char.appendChild(img);
+
+    const timeSinceStart = (Date.now()-startTime) % loopLength;
+    const delay = loopLength - timeSinceStart;
+
+    setTimeout(()=>{
+      assignSound(char, file, imgSrc, loopLength);
+    }, delay);
+  }
+
+  const audioMap = {};
+
+  function assignSound(char, file, imgSrc, loopLength){
+    const audio = new Audio('sounds/'+file);
+    char.dataset.sound = file;
+    char.classList.add('active');
+
+    const img = char.querySelector('img');
+    if(img){ img.style.opacity=1; img.style.transform="scale(1)"; char.style.background="transparent"; char.style.borderRadius="0"; }
+
+    const playLoop = ()=>{
+      audio.currentTime=0; audio.play();
+    };
+    playLoop();
+    const interval = setInterval(playLoop, loopLength);
+    audioMap[char.id]={audio, interval};
+  }
+
+  function removeSound(char){
+    const data = audioMap[char.id];
+    if(data){ clearInterval(data.interval); data.audio.pause(); delete audioMap[char.id]; }
+    char.dataset.sound=''; char.classList.remove('active');
+    char.style.background="#333"; char.style.borderRadius="50%";
+    const img = char.querySelector('img'); if(img) img.remove();
+  }
+
+  // RESET
+  const resetBtn = theme==='kitchen'? document.getElementById('resetBtn1') : document.getElementById('resetBtn2');
+  resetBtn.addEventListener('click', ()=>{
+    for(const id in audioMap){ clearInterval(audioMap[id].interval); audioMap[id].audio.pause(); }
+    characters.forEach(c=>{
+      c.dataset.sound=''; c.classList.remove('active'); c.style.background="#333"; c.style.borderRadius="50%";
+      const img = c.querySelector('img'); if(img) img.remove();
+    });
+  });
+}
+
+// ===== SONS =====
+const kitchenSounds = [
+  {file:'vitro2.mp3', image:'images/vitro2.png', element:document.querySelector('[data-sound="vitro2.mp3"]')},
+  {file:'batidora3.mp3', image:'images/batidora3.png', element:document.querySelector('[data-sound="batidora3.mp3"]')},
+  {file:'nevera4.mp3', image:'images/nevera4.png', element:document.querySelector('[data-sound="nevera4.mp3"]')},
+  {file:'aixeta5.mp3', image:'images/aixeta5.png', element:document.querySelector('[data-sound="aixeta5.mp3"]')},
+  {file:'finalmicroones6.mp3', image:'images/finalmicroones6.png', element:document.querySelector('[data-sound="finalmicroones6.mp3"]')},
+  {file:'refresc7.mp3', image:'images/refresc7.png', element:document.querySelector('[data-sound="refresc7.mp3"]')},
+  {file:'forn8.mp3', image:'images/forn8.png', element:document.querySelector('[data-sound="forn8.mp3"]')}
+];
+
+const safareigSounds = [
+  {file:'rentadora1.mp3', image:'images/rentadora1.png', element:document.querySelector('[data-sound="rentadora1.mp3"]')},
+  {file:'portarentadora2.mp3', image:'images/portarentadora2.png', element:document.querySelector('[data-sound="portarentadora2.mp3"]')},
+  {file:'planxa3.mp3', image:'images/planxa3.png', element:document.querySelector('[data-sound="planxa3.mp3"]')},
+  {file:'cremallera4.mp3', image:'images/cremallera4.png', element:document.querySelector('[data-sound="cremallera4.mp3"]')},
+  {file:'centrifugat5.mp3', image:'images/centrifugat5.png', element:document.querySelector('[data-sound="centrifugat5.mp3"]')},
+  {file:'assecadora6.mp3', image:'images/assecadora6.png', element:document.querySelector('[data-sound="assecadora6.mp3"]')}
+];
+</script>
+
+</body>
+</html>
